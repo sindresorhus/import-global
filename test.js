@@ -18,7 +18,8 @@ test('npm', async t => {
 	await execa('npm', ['uninstall', '--global', 'cat-names']);
 });
 
-test('yarn', async t => {
+const testFailingCi = process.env.CI ? test.failing : test;
+testFailingCi('yarn', async t => {
 	await execa('npm', ['install', '--global', 'yarn']);
 
 	await execa('yarn', ['global', 'add', 'dog-names']);
