@@ -1,4 +1,4 @@
-# import-global [![Build Status](https://travis-ci.org/sindresorhus/import-global.svg?branch=master)](https://travis-ci.org/sindresorhus/import-global)
+# import-global
 
 > Import a globally installed module
 
