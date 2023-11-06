@@ -1,19 +1,21 @@
-'use strict';
-const path = require('path');
-const globalDirs = require('global-dirs');
+import {createRequire} from 'node:module';
+import globalDirectory from 'global-directory';
 
-module.exports = moduleId => {
-	try {
-		return require(path.join(globalDirs.yarn.packages, moduleId));
-	} catch (err) {
-		return require(path.join(globalDirs.npm.packages, moduleId));
-	}
-};
+const {resolve} = createRequire(import.meta.url);
 
-module.exports.silent = moduleId => {
+export async function importGlobal(moduleName) {
+	const modulePath = resolve(moduleName, {
+		paths: [
+			globalDirectory.yarn.packages,
+			globalDirectory.npm.packages,
+		],
+	});
+
+	return import(modulePath);
+}
+
+export async function importGlobalSilent(moduleName) {
 	try {
-		return module.exports(moduleId);
-	} catch (err) {
-		return null;
-	}
-};
+		return await importGlobal(moduleName);
+	} catch {}
+}

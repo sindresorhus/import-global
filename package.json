@@ -1,40 +1,47 @@
 {
-  "name": "import-global",
-  "version": "0.1.0",
-  "description": "Import a globally installed module",
-  "license": "MIT",
-  "repository": "sindresorhus/import-global",
-  "author": {
-    "name": "Sindre Sorhus",
-    "email": "sindresorhus@gmail.com",
-    "url": "sindresorhus.com"
-  },
-  "engines": {
-    "node": ">=4"
-  },
-  "scripts": {
-    "test": "xo && ava"
-  },
-  "files": [
-    "index.js"
-  ],
-  "keywords": [
-    "import",
-    "global",
-    "package",
-    "module",
-    "globally",
-    "npm",
-    "yarn",
-    "packages",
-    "require"
-  ],
-  "dependencies": {
-    "global-dirs": "^0.1.0"
-  },
-  "devDependencies": {
-    "ava": "*",
-    "execa": "^0.7.0",
-    "xo": "*"
-  }
+	"name": "import-global",
+	"version": "0.1.0",
+	"description": "Import a globally installed module",
+	"license": "MIT",
+	"repository": "sindresorhus/import-global",
+	"funding": "https://github.com/sponsors/sindresorhus",
+	"author": {
+		"name": "Sindre Sorhus",
+		"email": "sindresorhus@gmail.com",
+		"url": "https://sindresorhus.com"
+	},
+	"type": "module",
+	"exports": {
+		"types": "./index.d.ts",
+		"default": "./index.js"
+	},
+	"sideEffects": false,
+	"engines": {
+		"node": ">=18"
+	},
+	"scripts": {
+		"test": "xo && ava"
+	},
+	"files": [
+		"index.js"
+	],
+	"keywords": [
+		"import",
+		"global",
+		"package",
+		"module",
+		"globally",
+		"npm",
+		"yarn",
+		"packages",
+		"require"
+	],
+	"dependencies": {
+		"global-directory": "^4.0.1"
+	},
+	"devDependencies": {
+		"ava": "^5.3.1",
+		"execa": "^8.0.1",
+		"xo": "^0.56.0"
+	}
 }

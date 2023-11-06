@@ -1,32 +1,34 @@
+import process from 'node:process';
 import test from 'ava';
-import execa from 'execa';
-import m from '.';
+import {execa} from 'execa';
+import {importGlobal, importGlobalSilent} from './index.js';
 
-test('npm', async t => {
-	t.throws(() => {
-		m('.');
-	});
+test('importGlobal - npm', async t => {
+	await execa('npm', ['uninstall', '--global', 'cat-names']);
 
-	t.throws(() => {
-		m('cat-names');
-	});
-
-	t.truthy(m('npm').version);
+	await t.throwsAsync(importGlobal('./index.js'));
+	await t.throwsAsync(importGlobal('cat-names'));
+	await t.throwsAsync(importGlobal('npm'), {message: /programmatic API was removed/});
 
 	await execa('npm', ['install', '--global', 'cat-names']);
-	t.true(m('cat-names').all.indexOf('Snuggles') !== -1);
+
+	const {default: catNames} = await importGlobal('cat-names');
+	t.true(catNames.all.includes('Snuggles'));
+
 	await execa('npm', ['uninstall', '--global', 'cat-names']);
 });
 
 const testFailingCi = process.env.CI ? test.failing : test;
-testFailingCi('yarn', async t => {
+testFailingCi('importGlobal - yarn', async t => {
 	await execa('npm', ['install', '--global', 'yarn']);
-
 	await execa('yarn', ['global', 'add', 'dog-names']);
-	t.true(m('dog-names').all.indexOf('Katie') !== -1);
+
+	const {default: dogNames} = await importGlobal('dog-names');
+	t.true(dogNames.all.includes('Katie'));
+
 	await execa('yarn', ['global', 'remove', 'dog-names']);
 });
 
-test('.silent()', t => {
-	t.is(m.silent('.'), null);
+test('importGlobalSilent', async t => {
+	t.is(await importGlobalSilent('./index.js'), undefined);
 });

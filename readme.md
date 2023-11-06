@@ -4,45 +4,42 @@
 
 **Please don't use this unless absolutely necessary. Local dependencies should be preferred.**
 
-
 ## Install
 
+```sh
+npm install import-global
 ```
-$ npm install import-global
-```
-
 
 ## Usage
 
-```
-$ npm install --global cat-names
+```sh
+npm install --global cat-names
 ```
 
 ```js
-const importGlobal = require('import-global');
-const catNames = importGlobal('cat-names');
+import {importGlobal} from 'import-global';
+
+const {default: catNames} = await importGlobal('cat-names');
 
 catNames.random();
 //=> 'Snuggles'
 ```
 
-
 ## API
 
-### importGlobal(moduleId)
+### importGlobal(moduleName)
 
-Throws if the module can't be found.
+Throws if the module cannot be found.
 
-### importGlobal.silent(moduleId)
+### importGlobalSilent(moduleName)
 
-Returns `null` instead of throwing if the module can't be found.
+Returns `undefined` instead of throwing if the module cannot be found.
 
-#### moduleId
+#### moduleName
 
 Type: `string`
 
-What you would use in `require()`.
-
+What you would use in [`import()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/import).
 
 ## Related
 
@@ -50,9 +47,4 @@ What you would use in `require()`.
 - [import-from](https://github.com/sindresorhus/import-from) - Import a module from a given path
 - [resolve-from](https://github.com/sindresorhus/resolve-from) - Resolve the path of a module from a given path
 - [is-installed-globally](https://github.com/sindresorhus/is-installed-globally) - Check if your package was installed globally
-- [global-dirs](https://github.com/sindresorhus/global-dirs) - Get the directory of globally installed packages and binaries
-
-
-## License
-
-MIT © [Sindre Sorhus](https://sindresorhus.com)
+- [global-directory](https://github.com/sindresorhus/global-directory) - Get the directory of globally installed packages and binaries
