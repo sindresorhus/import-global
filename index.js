@@ -1,17 +1,7 @@
-import {createRequire} from 'node:module';
-import globalDirectory from 'global-directory';
-
-const {resolve} = createRequire(import.meta.url);
+import {resolveGlobal} from 'resolve-global';
 
 export async function importGlobal(moduleName) {
-	const modulePath = resolve(moduleName, {
-		paths: [
-			globalDirectory.yarn.packages,
-			globalDirectory.npm.packages,
-		],
-	});
-
-	return import(modulePath);
+	return import(resolveGlobal(moduleName));
 }
 
 export async function importGlobalSilent(moduleName) {
